@@ -26,37 +26,39 @@ Route::middleware('auth:sanctum')->get('/mentor', function (Request $request) {
     return 'bnjr';
 });
 
-Route::post('register',[UserController::class,'register']);
-Route::post('login',[UserController::class,'login']);
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
 
 
-Route::post('registerMentor',[MentorController::class,'registerMentor']);
+Route::post('registerMentor', [MentorController::class, 'registerMentor']);
 
-Route::post('login',[MentorController::class,'login']);
+Route::post('login', [MentorController::class, 'login']);
 
-
-Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function (){
-    /*routes d'acces pour mentors*/
-    Route::post('logout',[MentorController::class,'logout']);
-});
-
-Route::middleware(['auth:sanctum', 'acces:user'])->group(function (){
-     /*routes d'acces pour mentorés*/
-    Route::post('logoutUser',[UserController::class,'logoutUser']);
-
-});
-
-Route::middleware(['auth:sanctum', 'acces:admin'])->group(function (){
-     /*routes d'acces pour admin*/
-     /*routes de basse*/
-Route::get('nonArchive', [MentorController::class, 'non_archive']);
-Route::get('estArchive', [MentorController::class, 'est_archive']);
 Route::get('nombreMentor', [MentorController::class, 'nombre_mentor']);
 Route::get('nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
+
+
+Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
+    /*routes d'acces pour mentors*/
+    Route::post('logout', [MentorController::class, 'logout']);
+});
+
+Route::middleware(['auth:sanctum', 'acces:user'])->group(function () {
+    /*routes d'acces pour mentorés*/
+    Route::post('logoutUser', [UserController::class, 'logoutUser']);
+
+});
+
+Route::middleware(['auth:sanctum', 'acces:admin'])->group(function () {
+    /*routes d'acces pour admin*/
+    /*routes de basse*/
+    Route::get('nonArchive', [MentorController::class, 'non_archive']);
+    Route::get('estArchive', [MentorController::class, 'est_archive']);
+
 });
 
 
- 
+
 /*routes pour <notes></notes>*/
 // Route::post('store',[NoteController::class,'store']);
 // Route::post('notes/{note}/update',[NoteController::class,'update']);

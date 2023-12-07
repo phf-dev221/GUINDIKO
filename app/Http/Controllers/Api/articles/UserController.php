@@ -13,6 +13,8 @@ use App\Http\Requests\CreateMentoreRequest;
 class UserController extends Controller
 {
 
+    
+
     public function register(CreateMentoreRequest $request)
     {
         try{
