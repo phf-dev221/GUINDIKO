@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->string('email');
             $table->string('niveau_experience');
-            $table->integer('nombre_mentor');
+            $table->integer('nombre_mentores')->default(0);
             $table->string('specialite');
             $table->string('password');
             $table->timestamps();
