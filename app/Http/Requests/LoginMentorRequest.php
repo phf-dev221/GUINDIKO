@@ -5,7 +5,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateMentoreRequest extends FormRequest
+class LoginMentorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,17 +20,12 @@ class CreateMentoreRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+
+     public function rules(): array
     {
         return [
-            'nom'=>'required',
-            'email'=>'required|unique:users,email',
-            'photo_profil'=>'required',
-            'nombre_mentores'=>"required",
-            'password'=>'required',
-            'telephone' =>'required|regex:/^7[0-9]{8}$/|unique:mentors,telephone',
-            'specialite'=>'required',
-            'nombre_annee_experience'=>'required'
+            'email'=>'required|email',
+            'password'=>'required'
         ];
     }
 
@@ -46,18 +41,13 @@ class CreateMentoreRequest extends FormRequest
 
     public function messages(){
         return [
-            'nom.required'=>'le nom est requis',
             'email.required'=>'l\'email est requis',
-            'photo_profil.required'=>'Entrez une photo de profil',
-            'password.required'=>'le mot de passe est requis',
-            'specialite.required'=>'le nom est requis',
-            'telephone.required'=>'le telephone est requis',
-            'telephone.unique'=>'le numéro telephone est deja utilisé',
-            'telephone.regex'=>'le format du numéro est incorrect',
-            'nombre_annee_experience.required'=>'le nom est requis',
+            'email.exists'=>'l\'email n\'existe pas dans notre base de données',
+            'email.email'=>'format email invalide',
+            'password.required'=>'le mot de passe est requis'
 
         ];
     }
-
 }
+
 

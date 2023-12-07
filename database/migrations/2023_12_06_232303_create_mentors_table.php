@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('mentors', function (Blueprint $table) {
             $table->id(); 
-            $table->unsignedBigInteger('metiers_id');
             $table->string('nom');
             $table->string('telephone');
-            $table->string('email');
-            $table->string('niveau_experience');
+            $table->string('photo_profil');
+            $table->integer('nombre_annee_experience');
             $table->integer('nombre_mentores')->default(0);
-            $table->string('specialite');
+            $table->string('role')->default('mentor');
+            $table->boolean('est_archive')->default(false);
+            $table->string('email');
             $table->string('password');
+            $table->unsignedBigInteger('article_id');
             $table->timestamps();
         
         });
