@@ -48,7 +48,14 @@ Route::middleware(['auth:sanctum', 'acces:user'])->group(function (){
 
 Route::middleware(['auth:sanctum', 'acces:admin'])->group(function (){
      /*routes d'acces pour admin*/
+     /*routes de basse*/
+Route::get('nonArchive', [MentorController::class, 'non_archive']);
+Route::get('estArchive', [MentorController::class, 'est_archive']);
+Route::get('nombreMentor', [MentorController::class, 'nombre_mentor']);
+Route::get('nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
 });
+
+
  
 /*routes pour <notes></notes>*/
 // Route::post('store',[NoteController::class,'store']);

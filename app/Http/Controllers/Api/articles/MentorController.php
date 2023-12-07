@@ -62,7 +62,7 @@ class MentorController extends Controller
             }
     }
 
-    public function loginMentor(LoginMentorRequest $request){
+    public function login(LoginMentorRequest $request){
 
         if(Auth::guard('mentor')->attempt($request->only(['email','password']))){
             $user = Auth::guard('mentor')->user();
@@ -126,6 +126,74 @@ class MentorController extends Controller
 
     }
     
+    /*methodes de basse*/
+    // Method pour lister les mentors dont leurs état d'archive est false
+    public function non_archive(Mentor $mentor)
+    {
+        try {
+            if ($mentor->est_archive == false) {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des mentors non archivés',
+                    'mentor' => Mentor::all(),
+                ]); 
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    // Method pour lister les user dont leurs état d'archive est true
+    public function est_archive(Mentor $mentor)
+    {
+        try {
+            if ($mentor->est_archive == true) {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des mentors qui sont archivés',
+                    'mentor' => Mentor::all(),
+                ]); 
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    //Liste des users qui ont des etats non archive et qui n'ont pas atteint leurs limite max de mentorés
+    public function nombre_mentor(Mentor $mentor)
+    {
+        try {
+            if ($mentor->est_archive == false) {
+                if ($mentor->nombre_mentores < 16) {
+                    return response()->json([
+                        'status_code' => 200,
+                        'status_message' => 'Voici la liste des mentors qui n\'ont pas atteint la limite et qui ne sont pas archivés',
+                        'mentor' => Mentor::all(),
+                    ]); 
+                }
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    //Cette methode permet de lister les mentors qui ont atteint leurs limite de mentorés mais ils ne sont pas archivés
+    public function nombre_mentor_atteint(Mentor $mentor)
+    {
+        try {
+            if ($mentor->est_archive == false) {
+                if ($mentor->nombre_mentores >= 16) {
+                    return response()->json([
+                        'status_code' => 200,
+                        'status_message' => 'Voici la liste des mentors qui n\'ont pas atteint la limite et qui ne sont pas archivés',
+                        'mentor' => Mentor::all(),
+                    ]); 
+                }
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
 
 
 }
