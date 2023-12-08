@@ -25,9 +25,9 @@ class CreateMentoreRequest extends FormRequest
     {
         return [
             'nom'=>'required',
-            'email'=>'required|unique:users,email',
-            'password'=>'required',
-            'telephone' =>'required|regex:/^7[0-9]{8}$/|unique:mentors,telephone',
+            'email'=>'required|unique:users,email|email',
+            'password'=>'required|regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/',
+            'telephone' =>'required|regex:/^7[0-9]{8}$/|unique:users,telephone',
             
         ];
     }
@@ -47,7 +47,9 @@ class CreateMentoreRequest extends FormRequest
             'nom.required'=>'le nom est requis',
             'email.required'=>'l\'email est requis',
             'email.unique'=>'l\'email existe déja',
+            'email.email'=>"format email incorrect",
             'password.required'=>'le mot de passe est requis',
+            'password.regex'=>"le mot de passe doit contenir au moins 8 caractéres avec un chiffre, une lettre et un caractére spécial",
             'telephone.required'=>'le numéro de téléphone est requis',
             'telephone.unique'=>'le numéro telephone est deja utilisé',
             'telephone.regex'=>'le format du numéro est incorrect',

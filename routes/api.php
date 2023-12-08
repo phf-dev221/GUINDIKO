@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\articles\MentorController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    dd(Auth::guard('mentor')->check());
     return $request->user();
 });
 
@@ -34,13 +35,13 @@ Route::post('registerMentor', [MentorController::class, 'registerMentor']);
 
 Route::post('login', [MentorController::class, 'login']);
 
-Route::get('nombreMentor', [MentorController::class, 'nombre_mentor']);
-Route::get('nombreMentorAtteint', [MentorController::class, 'nombre_mentor_atteint']);
+
+Route::post('logout', [MentorController::class, 'logout']);
 
 
 Route::middleware(['auth:sanctum', 'acces:mentor'])->group(function () {
     /*routes d'acces pour mentors*/
-    Route::post('logout', [MentorController::class, 'logout']);
+    
 });
 
 Route::middleware(['auth:sanctum', 'acces:user'])->group(function () {
@@ -52,8 +53,7 @@ Route::middleware(['auth:sanctum', 'acces:user'])->group(function () {
 Route::middleware(['auth:sanctum', 'acces:admin'])->group(function () {
     /*routes d'acces pour admin*/
     /*routes de basse*/
-    Route::get('nonArchive', [MentorController::class, 'non_archive']);
-    Route::get('estArchive', [MentorController::class, 'est_archive']);
+ 
 
 });
 

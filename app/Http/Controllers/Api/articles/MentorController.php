@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginMentorRequest;
+use App\Http\Requests\CreateMentorRequest;
 use App\Http\Requests\CreateMentoreRequest;
 
 class MentorController extends Controller
@@ -31,7 +32,7 @@ class MentorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function registerMentor(CreateMentoreRequest $request)
+    public function registerMentor(CreateMentorRequest $request)
     {
         try{
             $user = new Mentor();
@@ -63,7 +64,6 @@ class MentorController extends Controller
     }
 
     public function login(LoginMentorRequest $request){
-
         if(Auth::guard('mentor')->attempt($request->only(['email','password']))){
             $user = Auth::guard('mentor')->user();
             $token = $user->createToken('cle_secret_pour_le_mentor',['mentor'])->plainTextToken;
@@ -99,6 +99,7 @@ class MentorController extends Controller
     public function logout()
     {
         try {
+            dd(Auth::user()->check());
             if (Auth::guard('mentor')->check()){
                 Auth::guard('mentor')->logout();
     
